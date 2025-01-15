@@ -58,6 +58,7 @@ Step 10: Place the converyed keras file in projectb directory as "keras.h5" and 
 Step 11: Now create a file pycharm as "main.py" and enter code.
 ![image](https://github.com/user-attachments/assets/a81badfb-f1ed-4f18-ab54-f1279acf1f5b)
 Step 12: Run code
+
 Step13: expected output may display by opening the web camera of your system and show the "confidence score1" of your model
 
 
