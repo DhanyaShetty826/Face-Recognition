@@ -1,4 +1,4 @@
-This is a simple face recognition project using google teachable machine model. 
+ This is a simple face recognition project using google teachable machine model. 
 Project Overview The facial recognition project aims to implement a system that can identify and verify individuals based on their facial features. This system leverages machine learning algorithms, computer vision techniques, and a database to manage and track attendance or access control efficiently. It finds applications in areas such as security systems, attendance monitoring, and user authentication. 
 
 Key Components Image Acquisition: 
