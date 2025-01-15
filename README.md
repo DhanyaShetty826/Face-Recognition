@@ -61,5 +61,129 @@ Step 12: Run code
 
 Step13: expected output may display by opening the web camera of your system and show the "confidence score1" of your model
 
+Code:
+
+from tensorflow.keras.models import load_model
+# TensorFlow is required for Keras to work
+import cv2  # Install opencv-python
+import numpy as np
+
+# Disable scientific notation for clarity
+np.set_printoptions(suppress=True)
+
+# Load the model
+model = load_model("keras_Model.h5", compile=False)
+
+# Load the labels, stripping any newline characters
+class_names = [line.strip() for line in open("labels.txt", "r").readlines()]
+
+# CAMERA can be 0 or 1 based on default camera of your computer
+camera = cv2.VideoCapture(0)
+
+
+
+
+while True:
+    # Grab the webcamera's image.
+    ret, image = camera.read()
+
+    # Resize the raw image into (224-height,224-width) pixels
+    image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
+
+    # Show the image in a window
+    cv2.imshow("Webcam Image", image)
+
+    # Make the image a numpy array and reshape it to the model's input shape.
+    image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
+
+    # Normalize the image array
+    image = (image / 127.5) - 1
+
+    # Predicts the model
+    prediction = model.predict(image)
+    index = np.argmax(prediction)
+    class_name = class_names[index]
+    confidence_score = prediction[0][index]
+
+    # Print prediction and confidence score
+    print("Class:", class_name, end="")  # Removed slicing to print the full class name
+    print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
+
+    # Listen to the keyboard for presses.
+    keyboard_input = cv2.waitKey(1)
+
+    # 27 is the ASCII for the esc key on your keyboard.
+    if keyboard_input == 27:
+        break
+
+camera.release()
+cv2.destroyAllWindows()
+
+When developing a facial recognition project in PyCharm, several types of errors may arise. These errors can stem from various aspects of the project, including code logic, library usage, system setup, and environment configuration. Below is a list of common expected errors and how to address them:
+
+1. Library Installation Errors
+Error: ModuleNotFoundError: No module named 'cv2' or similar for other libraries like numpy, tensorflow, keras, mysql.connector.
+Cause: Required libraries are not installed in the Python environment.
+Solution: Install the missing library using PyCharm’s terminal or Python interpreter settings:
+
+
+pip install opencv-python-headless numpy tensorflow keras mysql-connector-python
+
+2. Incorrect Model Path
+Error: OSError: Unable to open file (file not found or unable to open the file)
+Cause: The specified path for the model file (keras_Model1.h5) or label file (labels1.txt) is incorrect or the file is missing.
+Solution: Verify the file paths and ensure the files exist in the specified locations.
+
+3. Camera Access Issues
+Error: Error: Camera not accessible. or cv2.VideoCapture(0) failed to open camera.
+Cause: The camera may be in use by another application, or the system doesn't have the necessary permissions.
+Solution: Ensure no other application is using the camera and that PyCharm has the necessary permissions to access hardware.
+
+4. Database Connection Errors
+Error: mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'localhost' (10061)
+Cause: MySQL server is not running or incorrect connection parameters.
+Solution: Verify the MySQL server is running, and the connection parameters (host, user, password, database) are correct.
+
+5. TensorFlow Errors
+Error: Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX AVX2
+Cause: TensorFlow is optimized for certain CPU instructions that are not available.
+Solution: Install a version of TensorFlow compatible with your system's hardware or ignore the warning if it doesn't affect performance.
+
+6. Model Prediction Errors
+Error: ValueError: Input to model has incorrect shape
+Cause: The input image is not preprocessed correctly to match the expected input shape of the model.
+Solution: Ensure the image is resized and reshaped correctly before feeding it into the model.
+
+7. File I/O Errors
+Error: FileNotFoundError: [Errno 2] No such file or directory: 'labels1.txt'
+Cause: Missing or incorrect file path.
+Solution: Check if the file exists in the specified directory and the path is correct.
+
+8. Python Version Compatibility
+Error: SyntaxError: invalid syntax or unexpected behavior in some libraries.
+Cause: Incompatibility between the Python version used and the installed libraries.
+Solution: Ensure that you are using a compatible version of Python for the libraries in use, often Python 3.x for modern libraries.
+
+9. Logical Errors in Code
+Error: Code executes without runtime errors but produces incorrect results.
+Cause: Incorrect implementation of logic, such as wrong attendance conditions or model prediction handling.
+Solution: Debug the code using PyCharm’s debugging tools to step through and inspect variable states and logic flow.
+
+10. Resource Management Issues
+Error: Camera or database connection not being released properly, leading to locks or crashes.
+Cause: Resources not being released correctly after use.
+Solution: Use try-finally blocks or context managers to ensure resources are released properly:
+
+Code:
+try:
+    # Code to access camera or database
+finally:
+    camera.release()
+    conn.close()
+
+By anticipating these errors and applying the suggested solutions, you can streamline the development process and reduce troubleshooting time for your facial recognition project in PyCharm.
+
+
+
 
 
