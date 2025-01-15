@@ -36,7 +36,7 @@ Applications: Access Control: Automated door entry systems for secure access to 
 
 Surveillance: Monitoring and identifying individuals in public spaces for security purposes. This facial recognition project demonstrates a practical application of AI and computer vision, highlighting the integration of various technologies to solve real-world problems.
 
-Step 1: Search in web browser google teachable machine
+Step 1: Search in web browser google teachable machine.
 ![image](https://github.com/user-attachments/assets/6bb6b365-486c-4022-8b40-83c149f6b134)
 Step 2: Click on teachable Machine
 ![image](https://github.com/user-attachments/assets/4d0ff6b6-de54-476f-903b-3fce5ded1c66)
